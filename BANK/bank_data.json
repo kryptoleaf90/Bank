@@ -1,13 +1,11 @@
-[
-    {
-        "12345678907123": {
-            "name": "Tanish Pal Singh",
-            "dob": "2006-08-17",
-            "email": "tan508419@gmail.com",
-            "phone_number": "+918899128004",
-            "address": "baramulla,jammu and kashmir",
-            "income": "below 10000",
-            "occupation": "student"
-        }
+{
+    "12345678906789": {
+        "name": "Tanish Pal Singh",
+        "dob": "2006-08-17",
+        "email": "tan508419@gmail.com",
+        "phone_number": "+918899128004",
+        "address": "baramulla,jammu and kashmir",
+        "income": "below 10000",
+        "occupation": "student"
     }
-]
+}

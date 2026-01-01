@@ -7,10 +7,89 @@ try:
     with open('bank_data.json','r') as f:
         bank_data=json.load(f)
 except (FileNotFoundError,json.JSONDecodeError):
-    bank_data=[]
+    bank_data={}
 
 
 def main():
+    print('Open bank account: 1\nCreate net banking profile: 2\nLogin: 3')
+    ask=int(input('Choice: '))
+    if ask==1:
+        register()
+    elif ask==2:
+        ...
+    elif ask==3:
+        ...
+    else:
+        print('Invalid choice')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def net_banking():
+
+    while True:
+        email=input('Enter your email: ').strip()
+        user=None
+        for acc_no, details in bank_data.items():
+            if details['email'] == email:
+                user=details
+                break
+
+        if user is None:
+            print('Email not found. Try again.')
+            continue
+        password=valid_password()
+        while True:
+            password_test=input("Enter password again: ").strip()
+            if password!=password_test:
+                print('Password not matched\nTry again')
+            else:
+                user['password']=password
+                data_save()
+                print('Net banking profile created successfully')
+                return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def register():
     print('Register')
     name=name_input()
     dob=valid_dob().isoformat()
@@ -20,60 +99,41 @@ def main():
     income_=income()
     occupation=input('Enter occupation: ').strip()
     account_no=get_account_no()
-    bank_data.append({account_no:{'name':name,
-                      'dob':dob,
-                      'email':email,
-                      'phone_number':phone_number,
-                      'address':address_,
-                      'income':income_,
-                      'occupation':occupation,}})
+    bank_data[account_no] = {
+        'name': name,
+        'dob': dob,
+        'email': email,
+        'phone_number': phone_number,
+        'address': address_,
+        'income': income_,
+        'occupation': occupation
+    }
+
     data_save()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def valid_password():
+    while True:
+        problems=[]
+        code=input('Create password: ').strip()
+        if len(code)!=8:
+            problems.append('8 characters')
+        if ' ' in code:
+            problems.append('not contain spaces')
+        if not any(ch.isalpha() for ch in code):
+            problems.append('Alphabets')
+        if not any(ch.isupper() for ch in code):
+            problems.append('Uppercase alphabets')
+        if not any(ch.isdigit() for ch in code):
+            problems.append('Digits')
+        if not any(ch in '!"#$%&\'()*+,-./:;<=>?@[]^_`{|}~' for ch in code):
+            problems.append('Special characters')
+        if problems:
+            print('Password must have '+', '.join(problems))
+            continue
+        else:
+            return code
 
 
 
