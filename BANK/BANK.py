@@ -94,21 +94,23 @@ def password_check(user,acc_no):
             continue
         else:
             print('ACCESS ALLOWED')
-            logged_in(user,acc_no)
+            logged_in(acc_no)
             return
 
-def logged_in(user,acc_no):
+def logged_in(acc_no):
     while True:
         print('''====== ACCOUNT INFO ======''')
         print(f'Account number: {acc_no}')
-        print('Withdraw: 1\nDeposit: 2\nTransfer: 3')
+        print('Withdraw: 1\nDeposit: 2\nTransfer: 3\nShow balance: 4')
         choice=input('Enter your choice: ').strip()
         if choice=='1':
-            withdraw()
-        elif choice=='2':
-            deposit(user,acc_no)
-        elif choice=='3':
             ...
+        elif choice=='2':
+            ...
+        elif choice=='3':
+            transfer(acc_no)
+        elif choice=='4':
+            print(bank_data[acc_no]['balance'])
         else:
             print('Invalid choice')
             continue
@@ -153,6 +155,26 @@ def deposit(user, acc_no):
     
     
     
+def transfer(acc_no):
+    to_acc_no=input('Enter receiver\'s account number: ').strip()
+    try:
+        amount=int(input("Enter amount: $").strip())
+    except ValueError:
+        print("Invalid amount")
+        return
+    if bank_data[acc_no]['balance']<amount:
+        print("Insufficient balance")
+        return
+    ask_pin=int(input('Enter your pin: ').strip())
+    if ask_pin!=bank_data[to_acc_no]['pin']:
+        print('Incorrect pin')
+    bank_data[acc_no]['balance']-=amount
+    if to_acc_no in bank_data:
+        bank_data[to_acc_no]['balance']+=amount
+    else:
+        pass
+    print('Transfer complete')
+
 
 
 
