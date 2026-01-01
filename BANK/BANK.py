@@ -2,6 +2,7 @@ import json
 from datetime import date
 import re
 import random
+import time
 
 try:
     with open('bank_data.json','r') as f:
@@ -16,7 +17,7 @@ def main():
     if ask==1:
         register()
     elif ask==2:
-        ...
+        net_banking()
     elif ask==3:
         ...
     else:
@@ -61,8 +62,12 @@ def net_banking():
                 print('Password not matched\nTry again')
             else:
                 user['password']=password
-                data_save()
                 print('Net banking profile created successfully')
+                print('Generating bank pin...')
+                banking_pin=random.randint(1000,9999)
+                user['pin']=banking_pin
+                print(f'Your Banking pin: {banking_pin}')
+                data_save()
                 return
 
 

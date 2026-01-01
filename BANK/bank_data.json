@@ -6,6 +6,8 @@
         "phone_number": "+918899128004",
         "address": "baramulla,jammu and kashmir",
         "income": "below 10000",
-        "occupation": "student"
+        "occupation": "student",
+        "password": "Tanz@123",
+        "pin": 8162
     }
 }
