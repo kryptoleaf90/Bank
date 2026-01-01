@@ -70,24 +70,21 @@ def net_banking():
                 data_save()
                 return
 
+
 def login():
-    phone = input("Enter your phone number: ")
-
-    acc_no = None
-    user = None
-
-    for key, details in bank_data.items():
-        if details.get("phone_number") == phone:
-            acc_no = key
-            user = details
-            break
-
-    if acc_no is None:
-        print("MOBILE NUMBER NOT REGISTERED")
-        return
-
-    password_check(user, acc_no)
-
+    while True:
+        print('Login')
+        while True:
+            phone_no_inp=input('Enter your phone number: ').strip()
+            user=None
+            for acc_no, details in bank_data.items():
+                if details['phone_number']==phone_no_inp:
+                    user=details
+                    break
+            password_check(user,acc_no)
+            if user is None:
+                print('Phone number not found. Try again.')
+                continue
 
 def password_check(user,acc_no):
     while True:
@@ -116,6 +113,28 @@ def logged_in(user,acc_no):
             print('Invalid choice')
             continue
 
+
+
+    
+    
+
+
+
+    
+
+def withdraw(user, acc_no):
+    amount = int(input("Enter the amount: "))
+    while amount <= 0:
+        amount = int(input("Enter valid amount: "))
+    if amount > user["balance"]:
+        print("INSUFFICIENT BALANCE")
+        return
+    user["balance"] -= amount
+    bank_data[acc_no]["balance"] = user["balance"]
+    print("Withdrawal successful")
+    print("Remaining balance:", user["balance"])
+    data_save()
+
 def deposit(user, acc_no):
     amount = int(input("ENTER AMOUNT: "))
 
@@ -127,27 +146,14 @@ def deposit(user, acc_no):
     print("AMOUNT SUCCESSFULLY ADDED!")
     print("CURRENT BALANCE:", user["balance"])
 
-    data_save() 
-
-    
-    
+    data_save()
 
 
 
     
     
     
-    
-def withdraw():
-    amount_withdraw=int(input("Enter the amount:"))
-    while amount_withdraw < 0:
-        amount_withdraw=int(input("Enter valid amount:"))
-    for acc_no, details in bank_data.items():
-                if details['phone_number']==phone_no_inp:
-                    user=details
-                    break
 
-    
 
 
 
