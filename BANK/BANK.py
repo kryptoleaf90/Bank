@@ -19,7 +19,7 @@ def main():
     elif ask==2:
         net_banking()
     elif ask==3:
-        ...
+        login()
     else:
         print('Invalid choice')
 
@@ -71,7 +71,47 @@ def net_banking():
                 return
 
 
+def login():
+    while True:
+        print('Login')
+        while True:
+            phone_no_inp=input('Enter your phone number: ').strip()
+            user=None
+            for acc_no, details in bank_data.items():
+                if details['phone_number']==phone_no_inp:
+                    user=details
+                    break
+            password_check(user,acc_no)
+            if user is None:
+                print('Phone number not found. Try again.')
+                continue
 
+def password_check(user,acc_no):
+    while True:
+        password_inp = input('Password: ')
+        if password_inp!=user['password']:
+            print('Invalid password')
+            continue
+        else:
+            print('ACCESS ALLOWED')
+            logged_in(user,acc_no)
+            return
+
+def logged_in(user,acc_no):
+    while True:
+        print('''====== ACCOUNT INFO ======''')
+        print(f'Account number: {acc_no}')
+        print('Withdraw: 1\nDeposit: 2\nTransfer: 3')
+        choice=input('Enter your choice: ').strip()
+        if choice=='1':
+            ...
+        elif choice=='2':
+            ...
+        elif choice=='3':
+            ...
+        else:
+            print('Invalid choice')
+            continue
 
 
 
